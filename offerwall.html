@@ -3,58 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Choose an offer</title>
+<meta name="theme-color" content="#07152f">
+<title>Earn rewards | RobuxRewards</title>
 <style>
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #06122e;
-    color: #fff;
-    padding: 24px;
-  }
-  h1 { font-size: 20px; margin-bottom: 4px; }
-  p.sub { color: #9fb0d0; font-size: 14px; margin-bottom: 20px; }
-  #offerwall {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 480px;
-  }
-  #offerwall a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #101d40;
-    border: 1px solid #24365f;
-    border-radius: 12px;
-    padding: 12px 14px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  #offerwall a:hover { border-color: #4a6fd0; }
-  #offerwall img { border-radius: 8px; }
-  #offerwall b { flex: 1; }
+  :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; color: #f7f9ff; background: radial-gradient(circle at 50% -15%, #253c82 0, #101f4b 32%, #07152f 72%); padding: 26px 18px 42px; }
+  .shell { width: min(100%, 760px); margin: 0 auto; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -.03em; font-size: 17px; }
+  .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: linear-gradient(135deg, #6f8cff, #9a65ff); box-shadow: 0 8px 24px #6f8cff40; font-size: 16px; }
+  .balance { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid #ffffff1c; border-radius: 999px; background: #ffffff0d; color: #cbd6f4; font-size: 12px; }
+  .balance strong { color: #fff; }
+  .hero { margin-bottom: 24px; }
+  .eyebrow { margin: 0 0 9px; color: #9eb4ff; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { max-width: 540px; margin: 0; font-size: clamp(28px, 6vw, 43px); line-height: 1.04; letter-spacing: -.055em; }
+  .sub { max-width: 560px; margin: 13px 0 0; color: #aab9da; font-size: 14px; line-height: 1.55; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 24px; }
+  .step { min-width: 0; padding: 14px; border: 1px solid #ffffff12; border-radius: 16px; background: #ffffff08; }
+  .step-number { display: grid; place-items: center; width: 24px; height: 24px; margin-bottom: 10px; border-radius: 8px; background: #718cff25; color: #afbdff; font-size: 12px; font-weight: 800; }
+  .step b { display: block; margin-bottom: 4px; font-size: 12px; }
+  .step span { display: block; color: #8293b9; font-size: 11px; line-height: 1.4; }
+  .offers-header { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .offers-header h2 { margin: 0; font-size: 17px; letter-spacing: -.02em; }
+  .offers-header p { margin: 0; color: #8293b9; font-size: 12px; }
+  #offerwall { display: flex; flex-direction: column; gap: 10px; }
+  .offer { display: flex; align-items: center; gap: 13px; padding: 13px 14px; border: 1px solid #ffffff14; border-radius: 17px; background: linear-gradient(100deg, #162754cc, #101d40cc); color: inherit; text-decoration: none; box-shadow: 0 10px 26px #00000012; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  .offer:hover, .offer:focus-visible { transform: translateY(-2px); border-color: #849bff80; background: #1a2e61; outline: none; }
+  .offer img, .offer-icon { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 13px; object-fit: cover; }
+  .offer-icon { display: grid; place-items: center; background: #708bff1c; color: #aebcff; font-size: 19px; font-weight: 800; }
+  .offer-copy { min-width: 0; flex: 1; }
+  .offer-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 750; }
+  .offer-meta { display: block; margin-top: 5px; color: #91a3c9; font-size: 11px; }
+  .payout { flex: 0 0 auto; text-align: right; }
+  .payout strong { display: block; color: #b9c5ff; font-size: 14px; }
+  .payout span { display: block; margin-top: 3px; color: #7588b4; font-size: 10px; }
+  .arrow { color: #849bff; font-size: 20px; }
+  .state { padding: 28px 16px; border: 1px dashed #ffffff24; border-radius: 17px; color: #9eafd1; text-align: center; font-size: 13px; }
+  .state strong { display: block; margin-bottom: 5px; color: #e1e7ff; }
+  .fineprint { margin: 18px 0 0; color: #7183aa; font-size: 11px; line-height: 1.5; text-align: center; }
+  @media (max-width: 520px) { body { padding: 18px 14px 30px; } .topbar { margin-bottom: 23px; } .steps { gap: 7px; } .step { padding: 11px; } .step span { font-size: 10px; } .balance { padding: 7px 9px; } }
 </style>
 </head>
 <body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">R</span><span>RobuxRewards</span></div>
+    <div class="balance" aria-label="Reward status"><span aria-hidden="true">✦</span><strong>Rewards ready</strong></div>
+  </header>
 
-<h1>Complete an offer to claim your reward</h1>
-<p class="sub">Pick any offer below. Your reward is credited once it's confirmed complete.</p>
+  <section class="hero" aria-labelledby="page-title">
+    <p class="eyebrow">Your reward is waiting</p>
+    <h1 id="page-title">Turn a few minutes into more rewards.</h1>
+    <p class="sub">Choose an offer below, complete it exactly as described, and your reward will be credited after confirmation.</p>
+  </section>
 
-<div id="offerwall"></div>
+  <section class="steps" aria-label="How it works">
+    <div class="step"><div class="step-number">1</div><b>Pick an offer</b><span>Choose the reward that fits you.</span></div>
+    <div class="step"><div class="step-number">2</div><b>Complete it</b><span>Follow the instructions carefully.</span></div>
+    <div class="step"><div class="step-number">3</div><b>Get credited</b><span>We confirm and add your reward.</span></div>
+  </section>
+
+  <section aria-labelledby="offers-title">
+    <div class="offers-header"><h2 id="offers-title">Available offers</h2><p id="offer-count">Loading offers…</p></div>
+    <div id="offerwall" aria-live="polite"><div class="state">Finding the best offers for you…</div></div>
+  </section>
+  <p class="fineprint">Only complete offers you are comfortable with. Rewards can take a few minutes to confirm.</p>
+</main>
 <script>
-fetch("https://walltrks.com/ow/6a920e31e3f6416cc243c8aa?format=json")
-  .then(function (r) { return r.json(); })
-  .then(function (data) {
-    document.getElementById("offerwall").innerHTML = data.offers.map(function (o) {
-      return '<a href="' + o.url + '" target="_blank" rel="noopener">'
-           + (o.picture ? '<img src="' + o.picture + '" width="44" height="44">' : '')
-           + '<b>' + o.name + '</b> ' + (o.displayPayout || '$' + o.payout)
-           + '</a>';
-    }).join('');
-  });
+  var wall = document.getElementById("offerwall");
+  var count = document.getElementById("offer-count");
+  var escapeHtml = function (value) { return String(value == null ? "" : value).replace(/[&<>'"]/g, function (char) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]; }); };
+  fetch("https://walltrks.com/ow/6a920e31e3f6416cc243c8aa?format=json")
+    .then(function (response) { if (!response.ok) throw new Error("Offer request failed"); return response.json(); })
+    .then(function (data) {
+      var offers = Array.isArray(data.offers) ? data.offers : [];
+      count.textContent = offers.length + (offers.length === 1 ? " offer" : " offers");
+      if (!offers.length) { wall.innerHTML = '<div class="state"><strong>No offers available right now</strong>Check back soon for new ways to earn.</div>'; return; }
+      wall.innerHTML = offers.map(function (offer) {
+        var name = escapeHtml(offer.name || "Reward offer");
+        var payout = escapeHtml(offer.displayPayout || (offer.payout ? "$" + offer.payout : "Reward"));
+        var picture = offer.picture ? '<img src="' + escapeHtml(offer.picture) + '" alt="" width="48" height="48">' : '<span class="offer-icon" aria-hidden="true">✦</span>';
+        return '<a class="offer" href="' + escapeHtml(offer.url || "#") + '" target="_blank" rel="noopener noreferrer">' + picture + '<span class="offer-copy"><span class="offer-name">' + name + '</span><span class="offer-meta">Verified partner offer · New opportunities</span></span><span class="payout"><strong>' + payout + '</strong><span>Earn now</span></span><span class="arrow" aria-hidden="true">›</span></a>';
+      }).join("");
+    })
+    .catch(function () { count.textContent = "Try again later"; wall.innerHTML = '<div class="state"><strong>Offers are taking a moment</strong>Please refresh the page and try again.</div>'; });
 </script>
-
 </body>
 </html>
